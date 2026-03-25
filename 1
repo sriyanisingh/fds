@@ -1,17 +1,25 @@
-// 1. Find all people older than 26 
-MATCH (p:Person) 
-WHERE p.age > 26 
-RETURN p.name, p.age; 
+# Importing necessary library 
+import pandas as pd 
  
-// 2. Count how many FRIENDS_WITH relationships exist 
-MATCH (:Person)-[r:FRIENDS_WITH]->(:Person) 
-RETURN COUNT(r) AS TotalFriendships; 
+# Loading the dataset (example: students.csv) 
+data = pd.read_csv("students.csv") 
  
-// 3. Find friends of a particular person (Alice) 
-MATCH (a:Person {name: 'Alice'})-[:FRIENDS_WITH]->(friends) 
-RETURN friends.name AS FriendsOfAlice; 
+# Display first 5 rows of the dataset 
+print("First 5 Rows of Dataset:") 
+print(data.head()) 
  
-// 4. Find mutual connections 
-MATCH (a:Person)-[:FRIENDS_WITH]->(b:Person)-[:FRIENDS_WITH]
->(c:Person) 
-RETURN a.name AS Person, c.name AS MutualConnection;
+# Display the number of rows and columns 
+print("\nShape of the Dataset:") 
+print(data.shape) 
+ 
+# Display column names 
+print("\nColumn Names:") 
+print(data.columns) 
+ 
+# Display statistical summary of numerical columns 
+print("\nStatistical Summary:") 
+print(data.describe()) 
+ 
+# Check for missing values 
+print("\nMissing Values in Each Column:") 
+print(data.isnull().sum())
